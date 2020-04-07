@@ -1,0 +1,39 @@
+{
+  "name": "fe-cli",
+  "version": "1.0.0",
+  "description": "fe commond tools",
+  "main": "lib/index.js",
+  "bin": {
+    "fe": "lib/index.js"
+  },
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "create": "npm run build && npm run test",
+    "build": "tsc -p .",
+    "test": "sudo npm i -g && fe",
+    "link:pkg": "npm link",
+    "unlink:pkg": "npm unlink fe-cli"
+  },
+  "author": "wisteria",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "clear": "^0.1.0",
+    "commander": "^5.0.0",
+    "figlet": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/clear": "^0.1.0",
+    "@types/figlet": "^1.2.0",
+    "@types/node": "^13.11.0",
+    "cz-conventional-changelog": "3.1.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
