@@ -4,7 +4,7 @@ import figlet from 'figlet';
 import clear from 'clear';
 import commander from 'commander';
 
-// 
+//
 clear();
 console.log(
     chalk.red(
