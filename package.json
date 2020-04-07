@@ -6,11 +6,14 @@
   "bin": {
     "fe": "lib/index.js"
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' --files src/index.ts",
     "create": "npm run build && npm run test",
     "build": "tsc -p .",
-    "test": "jext --config jestconfig.json",
+    "test": "jest --config jestconfig.json",
     "link:pkg": "npm link",
     "unlink:pkg": "npm unlink fe-cli"
   },
@@ -30,7 +33,9 @@
   },
   "devDependencies": {
     "@types/clear": "^0.1.0",
+    "@types/debug": "^4.1.5",
     "@types/figlet": "^1.2.0",
+    "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.0",
     "@types/shelljs": "^0.8.7",

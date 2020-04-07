@@ -1,23 +1,37 @@
 #!/usr/bin/env node
-import chalk from 'chalk';
+import { red, cyan } from 'chalk';
 import figlet from 'figlet';
 import clear from 'clear';
-import commander from 'commander';
+import program from 'commander';
+//
+import { showTitileAndBanner } from './utils';
+import { ConsoleMessage } from './module/console-message';
+import { commit } from './actions';
+
 
 //
 clear();
-console.log(
-    chalk.red(
-        figlet.textSync('fe-cli', { horizontalLayout: 'full' })
-    )
-)
+showTitileAndBanner();
 
-commander
-    .version('0.0.1')
-    .description('An fe cli for improve development efficiency')
-    .option('-l, --list', 'List')
-    .parse(process.argv)
+// start
+program
+    .version(`${ConsoleMessage.TITLE} ${require('../package').version}`)
+    .usage('<command [options]');
 
-if (!commander.args.length) {
-    commander.help();
+
+// commit
+program
+    .command('commit')
+    .description("git提交信息配置")
+    .alias("cm")
+    .action(() => {
+        commit();
+    });
+
+
+// parse
+program.parse(process.argv);
+// help
+if (!program.args.length) {
+    program.outputHelp();
 }

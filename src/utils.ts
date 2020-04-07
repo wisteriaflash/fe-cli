@@ -1,9 +1,12 @@
 import fs from "fs";
 import path from "path";
-import chalk from "chalk";
+import { cyan, red } from "chalk";
 import symbols from "log-symbols";
 import shelljs from "shelljs";
-import ora from 'ora';
+import ora from "ora";
+import figlet from "figlet";
+//
+import { ConsoleMessage } from "./module/console-message";
 
 const packageFilename = "package.json";
 const packagePath = path.resolve(process.cwd(), packageFilename);
@@ -14,13 +17,13 @@ const packagePath = path.resolve(process.cwd(), packageFilename);
  */
 export const getPackageInfo = () => {
     try {
-        let packageInfo = fs.readFileSync(packagePath, {
+        const packageInfo = fs.readFileSync(packagePath, {
             encoding: "utf-8",
         });
-        packageInfo = JSON.parse(packageInfo);
-        return packageInfo;
+        // packageInfo = JSON.parse(packageInfo);
+        return JSON.parse(packageInfo);
     } catch (error) {
-        console.log(symbols.error, chalk.red(`${packageFilename}文件不存在`));
+        console.log(symbols.error, red(`${packageFilename}文件不存在`));
         shelljs.exit();
     }
 };
@@ -33,11 +36,10 @@ export const setPackageInfo = (packageInfo: object) => {
     try {
         fs.writeFileSync(packagePath, JSON.stringify(packageInfo, null, 2));
     } catch (error) {
-        console.log(symbols.error, chalk.red(`${packageFilename}文件写入出错`));
+        console.log(symbols.error, red(`${packageFilename}文件写入出错`));
         shelljs.exit();
     }
 };
-
 
 /**
  * 运行命令
@@ -48,18 +50,30 @@ export const setPackageInfo = (packageInfo: object) => {
  *
  */
 export const runCommand = ({
-    cmdStr='',
-    message='运行',
-    loadingMessage='正在加载'
-  }) =>{
+    cmdStr = "",
+    message = "运行",
+    loadingMessage = "正在加载",
+}) => {
     const spinner = ora(`${loadingMessage}...\n`);
     spinner.start();
     try {
-      shelljs.exec(cmdStr);
-      spinner.succeed();
-      console.log(symbols.success, `${message}成功`);
+        shelljs.exec(cmdStr);
+        spinner.succeed();
+        console.log(symbols.success, `${message}成功`);
     } catch (error) {
-      spinner.fail();
-      console.log(symbols.error, `${message}失败`);
+        spinner.fail();
+        console.log(symbols.error, `${message}失败`);
     }
-  }
+};
+
+/**
+ * 显示标题
+ */
+export const showTitileAndBanner = () => {
+    console.log(
+        cyan(
+            figlet.textSync(ConsoleMessage.TITLE, { horizontalLayout: "full" })
+        )
+    );
+    console.info(cyan(ConsoleMessage.BANNER));
+};
