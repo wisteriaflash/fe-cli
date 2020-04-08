@@ -4,7 +4,7 @@ import program from 'commander';
 //
 import { showTitileAndBanner } from './utils';
 import { ConsoleMessage } from './module/console-message';
-import { commit } from './actions';
+import { commit, editorconfig } from './actions';
 
 
 //
@@ -26,6 +26,14 @@ program
         commit();
     });
 
+// editorconfig
+program
+    .command('editorconfig')
+    .description(".editorconfig 配置")
+    .alias("editorc")
+    .action(() => {
+        editorconfig();
+    });
 
 
 

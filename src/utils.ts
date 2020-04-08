@@ -7,9 +7,25 @@ import ora from "ora";
 import figlet from "figlet";
 //
 import { ConsoleMessage } from "./module/console-message";
+import { ROOT_PATH } from './CONST';
 
 const packageFilename = "package.json";
 const packagePath = path.resolve(process.cwd(), packageFilename);
+
+/**
+ * 写入文件
+ * @param content
+ * @param filePath 文件路径
+ */
+export const writeFile = (fileName: string, content:string, filePath: string = ROOT_PATH) => {
+    const resolvePath = path.resolve(filePath, fileName);
+    try {
+        fs.writeFileSync(resolvePath, content);
+    } catch (error) {
+        console.log(symbols.error, red(`${fileName}文件写入出错`));
+        shelljs.exit();
+    }
+}
 
 /**
  * 获取Package.json信息
@@ -33,12 +49,14 @@ export const getPackageInfo = () => {
  *
  */
 export const setPackageInfo = (packageInfo: object) => {
-    try {
-        fs.writeFileSync(packagePath, JSON.stringify(packageInfo, null, 2));
-    } catch (error) {
-        console.log(symbols.error, red(`${packageFilename}文件写入出错`));
-        shelljs.exit();
-    }
+    const content = JSON.stringify(packageInfo, null, 4);
+    writeFile(packageFilename, content);
+    // try {
+    //     fs.writeFileSync(packagePath, JSON.stringify(packageInfo, null, 4));
+    // } catch (error) {
+    //     console.log(symbols.error, red(`${packageFilename}文件写入出错`));
+    //     shelljs.exit();
+    // }
 };
 
 /**

@@ -33,7 +33,7 @@ const commitizenQuestions:inquirer.QuestionCollection = [
  * commitizen 配置
  * @param {boolean} isForce 是否强制执行
  */
-const configCommitizen = async (isForce = false, packageInfo:Partial<pkgInfo> = {}) => {
+const configCommitizen = async (isForce = false, packageInfo:Partial<FE.pkgInfo> = {}) => {
     const { packageManager } = await inquirer.prompt(commitizenQuestions);
     debugFun("包管理器", packageManager);
     // clean
@@ -50,11 +50,9 @@ const configCommitizen = async (isForce = false, packageInfo:Partial<pkgInfo> = 
         setPackageInfo(packageInfo);
     }
     // commitizen
-    let cmdStr =
-        "npm install -g commitizen && commitizen init cz-conventional-changelog --save --save-exact";
+    let cmdStr = "npm install -g commitizen && commitizen init cz-conventional-changelog --save --save-exact";
     if (packageManager === "yarn") {
-        cmdStr =
-            "commitizen init cz-conventional-changelog --yarn --dev --exact";
+        cmdStr = "commitizen init cz-conventional-changelog --yarn --dev --exact";
     }
     runCommand({
         cmdStr,

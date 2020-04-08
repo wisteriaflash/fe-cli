@@ -4,14 +4,9 @@ declare namespace FE {
      *
      * @interface pkgInfo
      */
-    export interface a{
+    export interface pkgInfo {
         name: string;
+        version: string;
+        config?: object;
     }
-
-}
-
-interface pkgInfo {
-    name: string;
-    version: string;
-    config?: object;
 }
