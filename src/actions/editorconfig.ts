@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs-extra';
 import shelljs from 'shelljs';
 import path from 'path';
 import Mustache from 'mustache';
@@ -10,29 +10,27 @@ import { ROOT_PATH } from '../CONST';
 
 
 
-const editorconfig = () => {
+const editorconfig = (size: string = '4') => {
     const fileName = '.editorconfig';
     // check
     const filePath = path.resolve(ROOT_PATH, fileName);
-    fs.open(filePath, 'wx', (err) => {
-        if (err) {
-            if (err.code === 'EEXIST') {
-                console.log(symbols.error, chalk.red(`${fileName} 文件已经存在`));
-              return;
-            }
-            throw err;
-        }
-        // write
-        const mustacheTempPath = path.resolve(__dirname, '../templates/editorconfig.mustache');
-        const mustacheTemp = fs.readFileSync(mustacheTempPath, {
-            encoding: 'utf8',
-        });
-        const content = Mustache.render(mustacheTemp, {
-            size: 4,
-        })
-        writeFile(fileName, content);
-        console.log(symbols.success, chalk.green(`${fileName}文件写入成功`));
-    });
+    fs.pathExists(filePath)
+      .then((exists) => {
+         if(exists){
+            console.log(symbols.error, chalk.red(`${fileName} 文件已经存在`));
+            return;
+         }
+         // write
+         const mustacheTempPath = path.resolve(__dirname, '../templates/editorconfig.mustache');
+         const mustacheTemp = fs.readFileSync(mustacheTempPath, {
+               encoding: 'utf8',
+         });
+         const content = Mustache.render(mustacheTemp, {
+               size,
+         })
+         writeFile(fileName, content);
+         console.log(symbols.success, chalk.green(`${fileName}文件写入成功`));
+      })
 };
 
 export default editorconfig;

@@ -28,13 +28,12 @@ program
 
 // editorconfig
 program
-    .command('editorconfig')
+    .command('editorconfig [size]')
     .description(".editorconfig 配置")
     .alias("editorc")
-    .action(() => {
-        editorconfig();
+    .action((size:string) => {
+        editorconfig(size);
     });
-
 
 
 // parse
