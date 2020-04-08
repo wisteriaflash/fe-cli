@@ -11,10 +11,9 @@
   ],
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' --files src/index.ts",
-    "create": "npm run build && npm run test",
     "build": "tsc -p .",
     "test": "jest --config jestconfig.json",
-    "link:pkg": "npm link",
+    "link:pkg": "npm run build && npm link",
     "unlink:pkg": "npm unlink fe-cli"
   },
   "author": "wisteria",

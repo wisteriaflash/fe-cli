@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import { red, cyan } from 'chalk';
-import figlet from 'figlet';
 import clear from 'clear';
 import program from 'commander';
 //
@@ -27,6 +25,8 @@ program
     .action(() => {
         commit();
     });
+
+
 
 
 // parse
