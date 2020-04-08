@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import clear from 'clear';
 import program from 'commander';
+import minimist from 'minimist';
 //
 import { showTitileAndBanner } from './utils';
 import { ConsoleMessage } from './module/console-message';
@@ -8,26 +9,34 @@ import { commit, editorconfig } from './actions';
 
 
 //
-clear();
-showTitileAndBanner();
+// clear();
+// showTitileAndBanner();
 
-// start
-program
+const init = () => {
+    // title
+    const args = minimist(process.argv.slice(2));
+    const cmd: any = args._.shift();
+    if ((!cmd || cmd === 'help') && !args.h && !args.help) {
+        showTitileAndBanner();
+    }
+
+    // start
+    program
     .version(`${ConsoleMessage.TITLE} ${require('../package').version}`)
-    .usage('<command [options]');
+    .usage('<command> [options]');
 
 
-// commit
-program
+    // commit
+    program
     .command('commit')
     .description("git提交信息配置")
     .alias("cm")
     .action(() => {
         commit();
-    });
+    })
 
-// editorconfig
-program
+    // editorconfig
+    program
     .command('editorconfig [size]')
     .description(".editorconfig 配置")
     .alias("editorc")
@@ -35,10 +44,14 @@ program
         editorconfig(size);
     });
 
+    // parse
+    program.parse(process.argv);
 
-// parse
-program.parse(process.argv);
-// help
-if (!program.args.length) {
-    program.outputHelp();
+    // help
+    if (!program.args.length) {
+        program.outputHelp();
+      }
 }
+
+// init
+init();
