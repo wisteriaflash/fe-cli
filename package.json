@@ -1,6 +1,6 @@
 {
   "name": "fe-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "fe commond tools",
   "main": "lib/index.js",
   "bin": {
