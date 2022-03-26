@@ -29,7 +29,7 @@
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
     "log-symbols": "^3.0.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "mustache": "^4.0.1",
     "ora": "^4.0.3",
     "path": "^0.12.7",
