@@ -10,7 +10,7 @@
     "lib"
   ],
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' --files src/index.ts",
+    "start": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" --files src/index.ts",
     "prebuild": "cross-env NODE_ENV=prod ts-node config/build.ts",
     "build": "tsc --project tsconfig-build.json",
     "test": "jest --config jestconfig.json",
